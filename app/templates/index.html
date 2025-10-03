@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Room Booking</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        /* Animated gradient background */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            color: #0039f3ee;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, button {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        input:focus {
+            border-color: #000000;
+            background-color: #f0f8ff;
+        }
+
+        button {
+            background: linear-gradient(90deg, #6c63ff, #42a5f5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #42a5f5, #6c63ff);
+        }
+
+        .food-label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .booking-list {
+            list-style: none;
+            margin-top: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .booking-list li {
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <h1>Room Booking Form</h1>
+    
+    <form method="post" action="/book">
+        <input type="text" name="customer_name" placeholder="Customer Name" required>
+        <input type="number" name="room_number" placeholder="Room Number" required>
+        <input type="date" name="booking_date" required>
+        <input type="text" name="time_slot" placeholder="Time Slot (e.g. 7PM - 9PM)" required>
+        <input type="text" name="aadhaar_no" placeholder="Aadhaar Number" required>
+        <input type="text" name="pan_no" placeholder="PAN Number" required>
+        <input type="email" name="email" placeholder="Email ID" required>
+
+        <label class="food-label">Food Preference:</label>
+        <div class="radio-group">
+            <input type="radio" id="veg" name="food_pref" value="Veg" required>
+            <label for="veg">Veg</label>
+
+            <input type="radio" id="nonveg" name="food_pref" value="Non-Veg" required>
+            <label for="nonveg">Non-Veg</label>
+        </div>
+
+        <button type="submit">Book Room</button>
+    </form>
+
+    <h2>Current Bookings</h2>
+    <ul class="booking-list">
+        {% for booking in bookings %}
+            <li>
+                <strong>{{ booking.customer_name }}</strong> - Room {{ booking.room_number }}<br>
+                Date: {{ booking.booking_date }} | Time Slot: {{ booking.time_slot }}<br>
+                Aadhaar: {{ booking.aadhaar_no }} | PAN: {{ booking.pan_no }}<br>
+                Email: {{ booking.email }}<br>
+                Food Preference: {{ booking.food_pref }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+
